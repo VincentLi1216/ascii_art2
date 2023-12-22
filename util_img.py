@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from PIL import ImageFont, ImageDraw, Image
 
+import util
+
 def dark_pixel_counter(text):
 
     img = np.zeros((255, 255), dtype=np.uint8)
@@ -29,11 +31,7 @@ def dark_pixel_counter(text):
     return black_pixels_count
 
 
-
-if __name__ == "__main__":
-
-    ascii_text = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
-    
+def text_sorter(text, to_show=False):
     sorted_text = []
     zipped_lists = []
 
@@ -43,10 +41,25 @@ if __name__ == "__main__":
     
     print(f"zipped_lists: {zipped_lists}")
     sorted_list = sorted(zipped_lists)
-    _, sorted_text = zip(*sorted_list)
-    print(f"sorted_list: {sorted_list}")
-    print(f"sorted_text: {sorted_text}")
-    for text in sorted_text:
-        print(text*100)
+    sorted_num, sorted_text = zip(*sorted_list)
 
+    normalized_num = util.mapping(sorted_num, 0, 255)
+
+    if to_show:
+        print(f"sorted_list: {sorted_list}")
+        print(f"sorted_text: {sorted_text}")
+        print(f"normalized_num: {normalized_num}")
+        for text in sorted_text:
+            print(text*100)
+
+    return dict(normalized_num, sorted_text)
+
+
+
+
+if __name__ == "__main__":
+
+    ascii_text = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+    
+    text_sorter(ascii_text, True)
         
