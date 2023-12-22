@@ -1,4 +1,6 @@
 import json
+import tkinter as tk
+from tkinter import filedialog
 
 def mapping(list, down_boun, up_boun):
     _max = max(list)
@@ -22,7 +24,18 @@ def json_reader(file_path):
 def json_writer(data, file_path):
     with open(file_path, "w") as f:
         json.dump(data, f, indent = 4)
-    
+
+def read_file_from_finder():
+
+    # 创建一个Tkinter根窗口但不显示
+    root = tk.Tk()
+    root.withdraw()
+
+    # 打开文件选择对话框
+    file_path = filedialog.askopenfilename()
+
+    return file_path
+
 
 
 if __name__ == "__main__":
@@ -37,4 +50,5 @@ if __name__ == "__main__":
     # print(closest_number)
     
     # print(json_reader("./darkness_dict.json"))
+    print(read_file_from_finder())
     pass

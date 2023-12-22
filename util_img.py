@@ -58,13 +58,21 @@ def return_text_by_number(darkness_dict, darkness):
     ans = util.find_closest(darkness_dict.keys(), darkness)
     return darkness_dict[ans]
 
+def resize(img, new_width, ratio_constant=0.17):
+    orig_height, orig_width = img.shape
+    new_height = int(new_width*orig_height*ratio_constant/orig_width)
+    new_size = (new_width, new_height)
+    resized_img = cv2.resize(img, new_size)
+    return resized_img
+
+
 
 
 
 if __name__ == "__main__":
 
     ascii_text = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
-    util.json_writer(text_sorter(ascii_text), "./darkness_dict.json")
+    # util.json_writer(text_sorter(ascii_text), "./darkness_dict.json")
     
 
     darkness_dict = util.json_reader("./darkness_dict.json")
