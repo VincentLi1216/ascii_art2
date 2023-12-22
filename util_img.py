@@ -39,20 +39,24 @@ def text_sorter(text, to_show=False):
         dark_pixel_count = dark_pixel_counter(char) 
         zipped_lists.append((dark_pixel_count, char))
     
-    print(f"zipped_lists: {zipped_lists}")
     sorted_list = sorted(zipped_lists)
     sorted_num, sorted_text = zip(*sorted_list)
 
     normalized_num = util.mapping(sorted_num, 0, 255)
 
     if to_show:
+        print(f"zipped_lists: {zipped_lists}")
         print(f"sorted_list: {sorted_list}")
         print(f"sorted_text: {sorted_text}")
         print(f"normalized_num: {normalized_num}")
         for text in sorted_text:
             print(text*100)
 
-    return dict(normalized_num, sorted_text)
+    return dict(zip(normalized_num, sorted_text))
+
+def return_text_by_number(darkness_dict, darkness):
+    ans = util.find_closest(darkness_dict.keys(), darkness)
+    return darkness_dict[ans]
 
 
 
@@ -60,6 +64,11 @@ def text_sorter(text, to_show=False):
 if __name__ == "__main__":
 
     ascii_text = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+    util.json_writer(text_sorter(ascii_text), "./darkness_dict.json")
     
-    text_sorter(ascii_text, True)
+
+    darkness_dict = util.json_reader("./darkness_dict.json")
+    print(darkness_dict)
+    print(return_text_by_number(darkness_dict, 218))
+    
         
