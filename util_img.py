@@ -32,9 +32,21 @@ def dark_pixel_counter(text):
 
 if __name__ == "__main__":
 
-    text = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+    ascii_text = ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+    
+    sorted_text = []
+    zipped_lists = []
 
-    for char in text:
-        print(char, dark_pixel_counter(char))
+    for char in ascii_text:
+        dark_pixel_count = dark_pixel_counter(char) 
+        zipped_lists.append((dark_pixel_count, char))
+    
+    print(f"zipped_lists: {zipped_lists}")
+    sorted_list = sorted(zipped_lists)
+    _, sorted_text = zip(*sorted_list)
+    print(f"sorted_list: {sorted_list}")
+    print(f"sorted_text: {sorted_text}")
+    for text in sorted_text:
+        print(text*100)
 
-
+        
